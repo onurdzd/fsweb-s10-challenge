@@ -5,7 +5,7 @@ import Post from "./Post";
 const PostList = () => {
   const notlar = useSelector((store)=> store.notlar);
 
-  return notlar.length === 0 ? (
+  return notlar && notlar.length === 0 ? (
     <div className="beyazKutu text-center p-6">Hiç notunuz yok</div>
   ) : (
     <div>

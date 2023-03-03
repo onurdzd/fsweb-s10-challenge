@@ -1,4 +1,4 @@
-import { NOT_EKLE, NOT_SIL } from "./actions";
+import { LOCAL_OKU, NOT_EKLE, NOT_SIL } from "./actions";
 import { nanoid } from "nanoid";
 
 const s10chLocalStorageKey = "s10ch";
@@ -33,6 +33,15 @@ function baslangicNotlariniGetir(key) {
 
 const reducer =(state=baslangicDegerleri,action)=>{
   switch(action.type){
+
+    case LOCAL_OKU :
+      let baslangic= baslangicNotlariniGetir(s10chLocalStorageKey)
+      let localData={
+        ...state,
+        notlar:baslangic
+      }
+    return localData
+
     case NOT_EKLE :
       const yeniNot = {
         id: nanoid(),
@@ -47,7 +56,7 @@ const reducer =(state=baslangicDegerleri,action)=>{
         notlar:[...state.notlar,yeniNot]
       }
 
-      localStorageStateYaz("yeniNot",eklenmisNot)
+      localStorageStateYaz(s10chLocalStorageKey,eklenmisNot.notlar)
       return eklenmisNot
 
       case NOT_SIL :
@@ -55,8 +64,9 @@ const reducer =(state=baslangicDegerleri,action)=>{
         ...state,
         notlar:state.notlar.filter(item=>item.id !== action.payload)
       }
-      localStorageStateYaz("yeniNot",silinmisNot)
+      localStorageStateYaz(s10chLocalStorageKey,silinmisNot.notlar)
       return silinmisNot
+
   default:
     return state
   }

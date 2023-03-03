@@ -2,8 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import Gratitude from "./../assets/grForm.png";
-import { useDispatch } from "react-redux";
-import { notEkle } from "../actions";
+import { useDispatch} from "react-redux";
+import { notEkleAPI } from "../actions";
 
 export default function PostForm() {
   const {
@@ -15,7 +15,7 @@ export default function PostForm() {
   const history = useHistory();
 
   function onSubmit(data) {
-    dispatch(notEkle(data));
+    dispatch(notEkleAPI(data))
     // burada ilgili eylemi dispatch edin
     // toast mesajı gösterin
     // sonra aşağıdaki satırı aktifleştirin

@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const NOT_EKLE = "NOT_EKLE"
 export const NOT_SIL = "NOT_SIL"
+export const LOCAL_OKU ="LOCAL_OKU"
 
 export function notEkle(not) {
   return {type:NOT_EKLE,payload:not}
@@ -17,19 +18,20 @@ export const notEkleAPI = (yeniNot) => dispatch => {
     .then((res) => {
       if (res.status === 200) {
         // res.data objesi içerisinden ihtiyaç duyduğunuz değeri bulun ve oluşturduğunuz notEkle ile dispatch edin
-      }
+        dispatch(notEkle(res.data.json));
+        console.log(res.data.json)
+    }
     })
     .catch((error) => console.log(error));
 }
 
 export const notSilAPI = (id) => dispatch => {
-  console.log(id)
   axios
     .delete("https://httpbin.org/anything", { data: id })
     .then((res) => {
       if (res.status === 200) {
         // res.data objesi içerisinden ihtiyaç duyduğunuz değeri bulun ve oluşturduğunuz notSil ile dispatch edin 
-      }
+        dispatch(notSil(res.data.data));
     })
     .catch((error) => console.log(error));
 }
