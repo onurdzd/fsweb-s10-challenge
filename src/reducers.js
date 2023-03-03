@@ -1,5 +1,9 @@
 import { LOCAL_OKU, NOT_EKLE, NOT_SIL } from "./actions";
 import { nanoid } from "nanoid";
+import {toast } from 'react-toastify';
+
+const eklendiToast = () => toast("Listene yeni not eklendi!");
+const silindiToast = () => toast("Seçtiğin not listeden çıkartıldı!");
 
 const s10chLocalStorageKey = "s10ch";
 
@@ -53,10 +57,11 @@ const reducer =(state=baslangicDegerleri,action)=>{
 
       const eklenmisNot={
         ...state,
-        notlar:[...state.notlar,yeniNot]
+        notlar:[yeniNot,...state.notlar]
       }
 
       localStorageStateYaz(s10chLocalStorageKey,eklenmisNot.notlar)
+      eklendiToast()
       return eklenmisNot
 
       case NOT_SIL :
@@ -65,6 +70,7 @@ const reducer =(state=baslangicDegerleri,action)=>{
         notlar:state.notlar.filter(item=>item.id !== action.payload)
       }
       localStorageStateYaz(s10chLocalStorageKey,silinmisNot.notlar)
+      silindiToast()
       return silinmisNot
 
   default:
