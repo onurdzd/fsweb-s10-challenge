@@ -32,6 +32,6 @@ export const notSilAPI = (id) => dispatch => {
       if (res.status === 200) {
         // res.data objesi içerisinden ihtiyaç duyduğunuz değeri bulun ve oluşturduğunuz notSil ile dispatch edin 
         dispatch(notSil(res.data.data));
-    })
+    }})
     .catch((error) => console.log(error));
 }
