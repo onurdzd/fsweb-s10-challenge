@@ -1,8 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { nanoid } from "nanoid";
 import { useHistory } from "react-router";
 import Gratitude from "./../assets/grForm.png";
+import { useDispatch } from "react-redux";
+import { notEkle } from "../actions";
 
 export default function PostForm() {
   const {
@@ -10,18 +11,11 @@ export default function PostForm() {
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onChange" });
-
+  const dispatch=useDispatch();
   const history = useHistory();
 
   function onSubmit(data) {
-    const yeniNot = {
-      id: nanoid(),
-      date: Date(),
-      body: Object.values(data)
-        .filter((v) => v !== "")
-        .join("|"),
-    };
-
+    dispatch(notEkle(data));
     // burada ilgili eylemi dispatch edin
     // toast mesajı gösterin
     // sonra aşağıdaki satırı aktifleştirin
@@ -35,8 +29,6 @@ export default function PostForm() {
       <div className="flex-1">
         <img src={Gratitude} alt="" className="block object-cover h-full" />
       </div>
-
-
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-3 p-8 flex-1"

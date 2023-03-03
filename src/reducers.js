@@ -1,3 +1,6 @@
+import { NOT_EKLE, NOT_SIL } from "./actions";
+import { nanoid } from "nanoid";
+
 const s10chLocalStorageKey = "s10ch";
 
 const baslangicDegerleri = {
@@ -27,3 +30,36 @@ function baslangicNotlariniGetir(key) {
     return baslangicDegerleri
   }
 }
+
+const reducer =(state=baslangicDegerleri,action)=>{
+  switch(action.type){
+    case NOT_EKLE :
+      const yeniNot = {
+        id: nanoid(),
+        date: Date(),
+        body: Object.values(action.payload)
+          .filter((v) => v !== "")
+          .join("|"),
+      };
+
+      const eklenmisNot={
+        ...state,
+        notlar:[...state.notlar,yeniNot]
+      }
+
+      localStorageStateYaz("yeniNot",eklenmisNot)
+      return eklenmisNot
+
+      case NOT_SIL :
+      const silinmisNot={
+        ...state,
+        notlar:state.notlar.filter(item=>item.id !== action.payload)
+      }
+      localStorageStateYaz("yeniNot",silinmisNot)
+      return silinmisNot
+  default:
+    return state
+  }
+}
+
+export default reducer;
