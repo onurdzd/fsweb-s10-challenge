@@ -20,6 +20,7 @@ export default function PostForm() {
     // toast mesajı gösterin
     // sonra aşağıdaki satırı aktifleştirin
     // setTimeout(() => history.push("/notlar"), 2000);
+    history.push("/notlar")
   }
 
   const inputCx = "border border-zinc-300 h-9 rounded-none text-sm px-2 w-full";

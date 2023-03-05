@@ -40,10 +40,16 @@ const reducer =(state=baslangicDegerleri,action)=>{
 
     case LOCAL_OKU :
       let baslangic= baslangicNotlariniGetir(s10chLocalStorageKey)
-      let localData={
+      let localData;
+      if(baslangic===baslangicDegerleri){
+        localData={
+          ...state,
+          notlar:baslangic.notlar
+        }}else{
+      localData={
         ...state,
         notlar:baslangic
-      }
+      }}
     return localData
 
     case NOT_EKLE :
